@@ -1,0 +1,13 @@
+# Installed by /setup
+tools/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Captures: downloaded media, transcripts and source links stay on this Mac
+captures/
+
+# Login cookies never go in git (they live in ~/.config/reel-watcher/)
+cookies*.txt
+.env

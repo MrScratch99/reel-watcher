@@ -1,0 +1,15 @@
+# Virtual project: no [build-system], so uv installs only the dependencies.
+[project]
+name = "reel-watcher"
+version = "0.1.0"
+description = "Turn a video or reel link into a transcript, frames and metadata that Claude can read"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "yt-dlp==2026.10.26",
+    "youtube-transcript-api==1.2.4",
+    "faster-whisper==1.2.1",
+]
+
+[tool.uv]
+# Apple Silicon Macs only: onnxruntime (needed by faster-whisper) ships no Intel Mac wheel.
+environments = ["sys_platform == 'darwin' and platform_machine == 'arm64'"]
