@@ -12,9 +12,11 @@ Nothing is sent anywhere except the download itself; the speech-to-text runs loc
 Talk to the user in the language he writes in (Swedish if unsure), in plain words.
 
 **Mac or cloud.** On his Mac the tools are in this folder (`/setup`). In a Claude Code cloud
-session, started from the Claude app on his phone, they are in `/opt/reel-watcher` (the
-environment's setup script, `cloud/setup.sh`) and there is no `/setup` to run. Keep answers
-short in the cloud: he is reading on a phone.
+session, started from the Claude app on his phone, the environment's setup script
+(`cloud/setup.sh`) has put everything in `/opt/reel-watcher` and there is no `/setup` to run.
+Run every command below from the folder that holds `watch.sh`: this repo, or
+`/opt/reel-watcher/app` in a cloud session. Keep answers short in the cloud: he is reading on a
+phone.
 
 ## Trust boundary: read first, every time
 
