@@ -7,6 +7,8 @@ description: Install everything the reel watcher needs (ffmpeg, ffprobe, uv, Pyt
 
 Talk to the user in the language he writes in (Swedish if unsure), in plain words. He may never have used a terminal.
 
+In a Claude Code cloud session (the folder has no `.venv` and `/opt/reel-watcher` exists) there is nothing to install: tell him it is ready and to use `/watch <link>`. If `/opt/reel-watcher` is missing there, the cloud environment lacks its setup script: point him to "On the phone" in README.md.
+
 1. Say, in one line, that you are installing the tools and that the first time takes a few minutes.
 2. Run from the repo root, with the Bash tool's `timeout` set to **600000** ms:
 

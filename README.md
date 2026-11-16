@@ -22,6 +22,30 @@ about ten frames, and tells you what the video says and shows.
 5. Första gången en Instagram-reel kräver inloggning frågar Claude vilken webbläsare du är
    inloggad på Instagram i. Säger macOS att något vill läsa webbläsarens inloggningar: välj Tillåt.
 
+## På mobilen, utan dator (svenska)
+
+Claude Code kan köras i Anthropics moln och startas från Claude-appen. Datorn kan vara avstängd,
+och det ingår i Pro.
+
+En gång, på en dator:
+1. Logga in på github.com, öppna https://github.com/MrScratch99/reel-watcher och tryck **Fork**,
+   så får du en egen kopia.
+2. Gå till https://claude.ai/code och koppla GitHub när den frågar.
+3. Under rutan där du skriver: klicka på miljöväljaren och sedan **New environment**.
+   - Namn: `reel-watcher`
+   - Network access: **Full**
+   - Setup script: klistra in hela innehållet i
+     [`cloud/setup.sh`](https://github.com/MrScratch99/reel-watcher/blob/main/cloud/setup.sh)
+   - Tryck **Add environment**.
+
+Sedan, varje gång, på mobilen:
+1. Kopiera länken till reelen i Instagram (Dela, Kopiera länk).
+2. Claude-appen, **Code**, ny session, välj repot `reel-watcher` och miljön `reel-watcher`.
+3. Skriv `/watch` och klistra in länken, gärna med en fråga.
+
+Första sessionen tar några minuter (verktygen installeras), sedan går det snabbt. Reels som kräver
+inloggning går bara från Macen.
+
 ## Quick start (English)
 
 1. Download the ZIP (green **Code** button, **Download ZIP**), unzip it, and move the folder to

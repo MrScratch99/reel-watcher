@@ -19,4 +19,5 @@ the language he writes in (Swedish if unsure), in plain words.
   `.venv/bin` only.
 - Login cookies live in `~/.config/reel-watcher/cookies.txt`, never in this folder, and are never
   printed.
-- Apple Silicon Mac with macOS 14 or later.
+- Mac: Apple Silicon with macOS 14 or later. Phone: a Claude Code cloud session whose environment
+  runs `cloud/setup.sh` (tools in `/opt/reel-watcher`), see README.md "On the phone".

@@ -30,11 +30,19 @@ set -o pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIB="$ROOT/lib"
 CAP_ROOT="$ROOT/captures"
-# Everything comes from this folder: ffmpeg/ffprobe in tools/bin, yt-dlp and
-# Python in .venv (both installed by /setup).
-export PATH="$ROOT/tools/bin:$ROOT/.venv/bin:$PATH"
-PY="$ROOT/.venv/bin/python"
-MODELS="$ROOT/tools/models"
+# Tools come from this folder (installed by /setup on a Mac: ffmpeg/ffprobe in
+# tools/bin, yt-dlp and Python in .venv) or, in a Claude Code cloud session,
+# from /opt/reel-watcher (installed by the environment's setup script,
+# cloud/setup.sh; ffmpeg from apt).
+if [ -x "$ROOT/.venv/bin/python" ]; then
+  export PATH="$ROOT/tools/bin:$ROOT/.venv/bin:$PATH"
+  PY="$ROOT/.venv/bin/python"; MODELS="$ROOT/tools/models"
+elif [ -x /opt/reel-watcher/venv/bin/python ]; then
+  export PATH="/opt/reel-watcher/venv/bin:$PATH"
+  PY=/opt/reel-watcher/venv/bin/python; MODELS=/opt/reel-watcher/models
+else
+  PY=""; MODELS=""
+fi
 # A pre-exported cookie file (scripts/cookies.sh) means no Keychain prompt per run.
 COOKIES_FILE="${WATCH_COOKIES_FILE:-$HOME/.config/reel-watcher/cookies.txt}"
 
@@ -56,7 +64,7 @@ need() { command -v "$1" >/dev/null 2>&1 || die "missing dependency: $1"; }
 
 # --- args + dependencies ----------------------------------------------------
 [ $# -ge 1 ] || die "usage: watch.sh <url-or-path> [slug]"
-[ -x "$PY" ] || die "not installed yet: run /setup (bash scripts/setup.sh) first"
+[ -n "$PY" ] || die "not installed yet: run /setup on a Mac, or add cloud/setup.sh to the cloud environment"
 need yt-dlp; need ffmpeg; need ffprobe
 
 SRC="$1"
@@ -227,7 +235,7 @@ if [ "$T_SOURCE" = "none" ]; then
     fi
     if [ "$DURATION" -gt "$WHISPER_CAP_S" ]; then
       record_error "whisper_skipped_over_cap"
-    elif [ -d "$MODELS" ]; then
+    elif [ -n "$MODELS" ] && [ -d "$MODELS" ]; then
       log "transcribing on-device (faster-whisper, language auto)..."
       ffmpeg -v quiet -y -i "file:$VIDEO" -ar 16000 -ac 1 -c:a pcm_s16le "$DIR/audio.wav" </dev/null
       if [ -s "$DIR/audio.wav" ]; then
